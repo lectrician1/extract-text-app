@@ -1,0 +1,7 @@
+mutation InsertSelector($name: String, $trigger_text: String) {
+  insert_selectors_one(object: {name: $name, trigger_text: $trigger_text}) {
+    id
+    name
+    trigger_text
+  }
+}

@@ -1,0 +1,54 @@
+table:
+  name: anchors
+  schema: public
+insert_permissions:
+  - role: public
+    permission:
+      check: {}
+      columns:
+        - dist_down
+        - dist_right
+        - radius
+        - anchor_text
+        - column
+        - created_at
+        - updated_at
+        - id
+        - selector
+    comment: ""
+select_permissions:
+  - role: public
+    permission:
+      columns:
+        - dist_down
+        - dist_right
+        - radius
+        - anchor_text
+        - column
+        - created_at
+        - updated_at
+        - id
+        - selector
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: public
+    permission:
+      columns:
+        - dist_down
+        - dist_right
+        - radius
+        - anchor_text
+        - column
+        - created_at
+        - updated_at
+        - id
+        - selector
+      filter: {}
+      check: {}
+    comment: ""
+delete_permissions:
+  - role: public
+    permission:
+      filter: {}
+    comment: ""

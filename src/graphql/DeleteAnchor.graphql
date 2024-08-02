@@ -1,0 +1,5 @@
+mutation DeleteAnchor($id: uuid!) {
+  delete_anchors_by_pk(id: $id) {
+    id
+  }
+}

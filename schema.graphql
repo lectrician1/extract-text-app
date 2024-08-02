@@ -1,0 +1,1176 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""whether this query should be cached (Hasura Cloud only)"""
+directive @cached(
+  """refresh the cache entry"""
+  refresh: Boolean! = false
+
+  """measured in seconds"""
+  ttl: Int! = 60
+) on QUERY
+
+"""
+Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+"""
+Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+
+  """does the column match the given case-insensitive pattern"""
+  _ilike: String
+  _in: [String!]
+
+  """
+  does the column match the given POSIX regular expression, case insensitive
+  """
+  _iregex: String
+  _is_null: Boolean
+
+  """does the column match the given pattern"""
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+
+  """does the column NOT match the given case-insensitive pattern"""
+  _nilike: String
+  _nin: [String!]
+
+  """
+  does the column NOT match the given POSIX regular expression, case insensitive
+  """
+  _niregex: String
+
+  """does the column NOT match the given pattern"""
+  _nlike: String
+
+  """
+  does the column NOT match the given POSIX regular expression, case sensitive
+  """
+  _nregex: String
+
+  """does the column NOT match the given SQL regular expression"""
+  _nsimilar: String
+
+  """
+  does the column match the given POSIX regular expression, case sensitive
+  """
+  _regex: String
+
+  """does the column match the given SQL regular expression"""
+  _similar: String
+}
+
+"""
+columns and relationships of "anchors"
+"""
+type anchors {
+  anchor_text: String
+  column: String
+  created_at: timestamptz
+  dist_down: Int
+  dist_right: Int
+  id: uuid!
+  radius: Int
+  selector: uuid!
+  updated_at: timestamptz
+}
+
+"""
+aggregated selection of "anchors"
+"""
+type anchors_aggregate {
+  aggregate: anchors_aggregate_fields
+  nodes: [anchors!]!
+}
+
+input anchors_aggregate_bool_exp {
+  count: anchors_aggregate_bool_exp_count
+}
+
+input anchors_aggregate_bool_exp_count {
+  arguments: [anchors_select_column!]
+  distinct: Boolean
+  filter: anchors_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "anchors"
+"""
+type anchors_aggregate_fields {
+  avg: anchors_avg_fields
+  count(columns: [anchors_select_column!], distinct: Boolean): Int!
+  max: anchors_max_fields
+  min: anchors_min_fields
+  stddev: anchors_stddev_fields
+  stddev_pop: anchors_stddev_pop_fields
+  stddev_samp: anchors_stddev_samp_fields
+  sum: anchors_sum_fields
+  var_pop: anchors_var_pop_fields
+  var_samp: anchors_var_samp_fields
+  variance: anchors_variance_fields
+}
+
+"""
+order by aggregate values of table "anchors"
+"""
+input anchors_aggregate_order_by {
+  avg: anchors_avg_order_by
+  count: order_by
+  max: anchors_max_order_by
+  min: anchors_min_order_by
+  stddev: anchors_stddev_order_by
+  stddev_pop: anchors_stddev_pop_order_by
+  stddev_samp: anchors_stddev_samp_order_by
+  sum: anchors_sum_order_by
+  var_pop: anchors_var_pop_order_by
+  var_samp: anchors_var_samp_order_by
+  variance: anchors_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "anchors"
+"""
+input anchors_arr_rel_insert_input {
+  data: [anchors_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: anchors_on_conflict
+}
+
+"""aggregate avg on columns"""
+type anchors_avg_fields {
+  dist_down: Float
+  dist_right: Float
+  radius: Float
+}
+
+"""
+order by avg() on columns of table "anchors"
+"""
+input anchors_avg_order_by {
+  dist_down: order_by
+  dist_right: order_by
+  radius: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "anchors". All fields are combined with a logical 'AND'.
+"""
+input anchors_bool_exp {
+  _and: [anchors_bool_exp!]
+  _not: anchors_bool_exp
+  _or: [anchors_bool_exp!]
+  anchor_text: String_comparison_exp
+  column: String_comparison_exp
+  created_at: timestamptz_comparison_exp
+  dist_down: Int_comparison_exp
+  dist_right: Int_comparison_exp
+  id: uuid_comparison_exp
+  radius: Int_comparison_exp
+  selector: uuid_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "anchors"
+"""
+enum anchors_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  anchors_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "anchors"
+"""
+input anchors_inc_input {
+  dist_down: Int
+  dist_right: Int
+  radius: Int
+}
+
+"""
+input type for inserting data into table "anchors"
+"""
+input anchors_insert_input {
+  anchor_text: String
+  column: String
+  created_at: timestamptz
+  dist_down: Int
+  dist_right: Int
+  id: uuid
+  radius: Int
+  selector: uuid
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type anchors_max_fields {
+  anchor_text: String
+  column: String
+  created_at: timestamptz
+  dist_down: Int
+  dist_right: Int
+  id: uuid
+  radius: Int
+  selector: uuid
+  updated_at: timestamptz
+}
+
+"""
+order by max() on columns of table "anchors"
+"""
+input anchors_max_order_by {
+  anchor_text: order_by
+  column: order_by
+  created_at: order_by
+  dist_down: order_by
+  dist_right: order_by
+  id: order_by
+  radius: order_by
+  selector: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type anchors_min_fields {
+  anchor_text: String
+  column: String
+  created_at: timestamptz
+  dist_down: Int
+  dist_right: Int
+  id: uuid
+  radius: Int
+  selector: uuid
+  updated_at: timestamptz
+}
+
+"""
+order by min() on columns of table "anchors"
+"""
+input anchors_min_order_by {
+  anchor_text: order_by
+  column: order_by
+  created_at: order_by
+  dist_down: order_by
+  dist_right: order_by
+  id: order_by
+  radius: order_by
+  selector: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "anchors"
+"""
+type anchors_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [anchors!]!
+}
+
+"""
+on_conflict condition type for table "anchors"
+"""
+input anchors_on_conflict {
+  constraint: anchors_constraint!
+  update_columns: [anchors_update_column!]! = []
+  where: anchors_bool_exp
+}
+
+"""Ordering options when selecting data from "anchors"."""
+input anchors_order_by {
+  anchor_text: order_by
+  column: order_by
+  created_at: order_by
+  dist_down: order_by
+  dist_right: order_by
+  id: order_by
+  radius: order_by
+  selector: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: anchors"""
+input anchors_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "anchors"
+"""
+enum anchors_select_column {
+  """column name"""
+  anchor_text
+
+  """column name"""
+  column
+
+  """column name"""
+  created_at
+
+  """column name"""
+  dist_down
+
+  """column name"""
+  dist_right
+
+  """column name"""
+  id
+
+  """column name"""
+  radius
+
+  """column name"""
+  selector
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "anchors"
+"""
+input anchors_set_input {
+  anchor_text: String
+  column: String
+  created_at: timestamptz
+  dist_down: Int
+  dist_right: Int
+  id: uuid
+  radius: Int
+  selector: uuid
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type anchors_stddev_fields {
+  dist_down: Float
+  dist_right: Float
+  radius: Float
+}
+
+"""
+order by stddev() on columns of table "anchors"
+"""
+input anchors_stddev_order_by {
+  dist_down: order_by
+  dist_right: order_by
+  radius: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type anchors_stddev_pop_fields {
+  dist_down: Float
+  dist_right: Float
+  radius: Float
+}
+
+"""
+order by stddev_pop() on columns of table "anchors"
+"""
+input anchors_stddev_pop_order_by {
+  dist_down: order_by
+  dist_right: order_by
+  radius: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type anchors_stddev_samp_fields {
+  dist_down: Float
+  dist_right: Float
+  radius: Float
+}
+
+"""
+order by stddev_samp() on columns of table "anchors"
+"""
+input anchors_stddev_samp_order_by {
+  dist_down: order_by
+  dist_right: order_by
+  radius: order_by
+}
+
+"""
+Streaming cursor of the table "anchors"
+"""
+input anchors_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: anchors_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input anchors_stream_cursor_value_input {
+  anchor_text: String
+  column: String
+  created_at: timestamptz
+  dist_down: Int
+  dist_right: Int
+  id: uuid
+  radius: Int
+  selector: uuid
+  updated_at: timestamptz
+}
+
+"""aggregate sum on columns"""
+type anchors_sum_fields {
+  dist_down: Int
+  dist_right: Int
+  radius: Int
+}
+
+"""
+order by sum() on columns of table "anchors"
+"""
+input anchors_sum_order_by {
+  dist_down: order_by
+  dist_right: order_by
+  radius: order_by
+}
+
+"""
+update columns of table "anchors"
+"""
+enum anchors_update_column {
+  """column name"""
+  anchor_text
+
+  """column name"""
+  column
+
+  """column name"""
+  created_at
+
+  """column name"""
+  dist_down
+
+  """column name"""
+  dist_right
+
+  """column name"""
+  id
+
+  """column name"""
+  radius
+
+  """column name"""
+  selector
+
+  """column name"""
+  updated_at
+}
+
+input anchors_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: anchors_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: anchors_set_input
+
+  """filter the rows which have to be updated"""
+  where: anchors_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type anchors_var_pop_fields {
+  dist_down: Float
+  dist_right: Float
+  radius: Float
+}
+
+"""
+order by var_pop() on columns of table "anchors"
+"""
+input anchors_var_pop_order_by {
+  dist_down: order_by
+  dist_right: order_by
+  radius: order_by
+}
+
+"""aggregate var_samp on columns"""
+type anchors_var_samp_fields {
+  dist_down: Float
+  dist_right: Float
+  radius: Float
+}
+
+"""
+order by var_samp() on columns of table "anchors"
+"""
+input anchors_var_samp_order_by {
+  dist_down: order_by
+  dist_right: order_by
+  radius: order_by
+}
+
+"""aggregate variance on columns"""
+type anchors_variance_fields {
+  dist_down: Float
+  dist_right: Float
+  radius: Float
+}
+
+"""
+order by variance() on columns of table "anchors"
+"""
+input anchors_variance_order_by {
+  dist_down: order_by
+  dist_right: order_by
+  radius: order_by
+}
+
+"""ordering argument of a cursor"""
+enum cursor_ordering {
+  """ascending ordering of the cursor"""
+  ASC
+
+  """descending ordering of the cursor"""
+  DESC
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "anchors"
+  """
+  delete_anchors(
+    """filter the rows which have to be deleted"""
+    where: anchors_bool_exp!
+  ): anchors_mutation_response
+
+  """
+  delete single row from the table: "anchors"
+  """
+  delete_anchors_by_pk(id: uuid!): anchors
+
+  """
+  delete data from the table: "selectors"
+  """
+  delete_selectors(
+    """filter the rows which have to be deleted"""
+    where: selectors_bool_exp!
+  ): selectors_mutation_response
+
+  """
+  delete single row from the table: "selectors"
+  """
+  delete_selectors_by_pk(id: uuid!): selectors
+
+  """
+  insert data into the table: "anchors"
+  """
+  insert_anchors(
+    """the rows to be inserted"""
+    objects: [anchors_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: anchors_on_conflict
+  ): anchors_mutation_response
+
+  """
+  insert a single row into the table: "anchors"
+  """
+  insert_anchors_one(
+    """the row to be inserted"""
+    object: anchors_insert_input!
+
+    """upsert condition"""
+    on_conflict: anchors_on_conflict
+  ): anchors
+
+  """
+  insert data into the table: "selectors"
+  """
+  insert_selectors(
+    """the rows to be inserted"""
+    objects: [selectors_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: selectors_on_conflict
+  ): selectors_mutation_response
+
+  """
+  insert a single row into the table: "selectors"
+  """
+  insert_selectors_one(
+    """the row to be inserted"""
+    object: selectors_insert_input!
+
+    """upsert condition"""
+    on_conflict: selectors_on_conflict
+  ): selectors
+
+  """
+  update data of the table: "anchors"
+  """
+  update_anchors(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: anchors_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: anchors_set_input
+
+    """filter the rows which have to be updated"""
+    where: anchors_bool_exp!
+  ): anchors_mutation_response
+
+  """
+  update single row of the table: "anchors"
+  """
+  update_anchors_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: anchors_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: anchors_set_input
+    pk_columns: anchors_pk_columns_input!
+  ): anchors
+
+  """
+  update multiples rows of table: "anchors"
+  """
+  update_anchors_many(
+    """updates to execute, in order"""
+    updates: [anchors_updates!]!
+  ): [anchors_mutation_response]
+
+  """
+  update data of the table: "selectors"
+  """
+  update_selectors(
+    """sets the columns of the filtered rows to the given values"""
+    _set: selectors_set_input
+
+    """filter the rows which have to be updated"""
+    where: selectors_bool_exp!
+  ): selectors_mutation_response
+
+  """
+  update single row of the table: "selectors"
+  """
+  update_selectors_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: selectors_set_input
+    pk_columns: selectors_pk_columns_input!
+  ): selectors
+
+  """
+  update multiples rows of table: "selectors"
+  """
+  update_selectors_many(
+    """updates to execute, in order"""
+    updates: [selectors_updates!]!
+  ): [selectors_mutation_response]
+}
+
+"""column ordering options"""
+enum order_by {
+  """in ascending order, nulls last"""
+  asc
+
+  """in ascending order, nulls first"""
+  asc_nulls_first
+
+  """in ascending order, nulls last"""
+  asc_nulls_last
+
+  """in descending order, nulls first"""
+  desc
+
+  """in descending order, nulls first"""
+  desc_nulls_first
+
+  """in descending order, nulls last"""
+  desc_nulls_last
+}
+
+type query_root {
+  """An array relationship"""
+  anchors(
+    """distinct select on columns"""
+    distinct_on: [anchors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [anchors_order_by!]
+
+    """filter the rows returned"""
+    where: anchors_bool_exp
+  ): [anchors!]!
+
+  """An aggregate relationship"""
+  anchors_aggregate(
+    """distinct select on columns"""
+    distinct_on: [anchors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [anchors_order_by!]
+
+    """filter the rows returned"""
+    where: anchors_bool_exp
+  ): anchors_aggregate!
+
+  """fetch data from the table: "anchors" using primary key columns"""
+  anchors_by_pk(id: uuid!): anchors
+
+  """
+  fetch data from the table: "selectors"
+  """
+  selectors(
+    """distinct select on columns"""
+    distinct_on: [selectors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [selectors_order_by!]
+
+    """filter the rows returned"""
+    where: selectors_bool_exp
+  ): [selectors!]!
+
+  """
+  fetch aggregated fields from the table: "selectors"
+  """
+  selectors_aggregate(
+    """distinct select on columns"""
+    distinct_on: [selectors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [selectors_order_by!]
+
+    """filter the rows returned"""
+    where: selectors_bool_exp
+  ): selectors_aggregate!
+
+  """fetch data from the table: "selectors" using primary key columns"""
+  selectors_by_pk(id: uuid!): selectors
+}
+
+"""
+columns and relationships of "selectors"
+"""
+type selectors {
+  """An array relationship"""
+  anchors(
+    """distinct select on columns"""
+    distinct_on: [anchors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [anchors_order_by!]
+
+    """filter the rows returned"""
+    where: anchors_bool_exp
+  ): [anchors!]!
+
+  """An aggregate relationship"""
+  anchors_aggregate(
+    """distinct select on columns"""
+    distinct_on: [anchors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [anchors_order_by!]
+
+    """filter the rows returned"""
+    where: anchors_bool_exp
+  ): anchors_aggregate!
+  created_at: timestamptz!
+  id: uuid!
+  name: String!
+  trigger_text: String!
+  updated_at: timestamptz
+}
+
+"""
+aggregated selection of "selectors"
+"""
+type selectors_aggregate {
+  aggregate: selectors_aggregate_fields
+  nodes: [selectors!]!
+}
+
+"""
+aggregate fields of "selectors"
+"""
+type selectors_aggregate_fields {
+  count(columns: [selectors_select_column!], distinct: Boolean): Int!
+  max: selectors_max_fields
+  min: selectors_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "selectors". All fields are combined with a logical 'AND'.
+"""
+input selectors_bool_exp {
+  _and: [selectors_bool_exp!]
+  _not: selectors_bool_exp
+  _or: [selectors_bool_exp!]
+  anchors: anchors_bool_exp
+  anchors_aggregate: anchors_aggregate_bool_exp
+  created_at: timestamptz_comparison_exp
+  id: uuid_comparison_exp
+  name: String_comparison_exp
+  trigger_text: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "selectors"
+"""
+enum selectors_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  selectors_pkey
+}
+
+"""
+input type for inserting data into table "selectors"
+"""
+input selectors_insert_input {
+  anchors: anchors_arr_rel_insert_input
+  created_at: timestamptz
+  id: uuid
+  name: String
+  trigger_text: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type selectors_max_fields {
+  created_at: timestamptz
+  id: uuid
+  name: String
+  trigger_text: String
+  updated_at: timestamptz
+}
+
+"""aggregate min on columns"""
+type selectors_min_fields {
+  created_at: timestamptz
+  id: uuid
+  name: String
+  trigger_text: String
+  updated_at: timestamptz
+}
+
+"""
+response of any mutation on the table "selectors"
+"""
+type selectors_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [selectors!]!
+}
+
+"""
+on_conflict condition type for table "selectors"
+"""
+input selectors_on_conflict {
+  constraint: selectors_constraint!
+  update_columns: [selectors_update_column!]! = []
+  where: selectors_bool_exp
+}
+
+"""Ordering options when selecting data from "selectors"."""
+input selectors_order_by {
+  anchors_aggregate: anchors_aggregate_order_by
+  created_at: order_by
+  id: order_by
+  name: order_by
+  trigger_text: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: selectors"""
+input selectors_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "selectors"
+"""
+enum selectors_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  trigger_text
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "selectors"
+"""
+input selectors_set_input {
+  created_at: timestamptz
+  id: uuid
+  name: String
+  trigger_text: String
+  updated_at: timestamptz
+}
+
+"""
+Streaming cursor of the table "selectors"
+"""
+input selectors_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: selectors_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input selectors_stream_cursor_value_input {
+  created_at: timestamptz
+  id: uuid
+  name: String
+  trigger_text: String
+  updated_at: timestamptz
+}
+
+"""
+update columns of table "selectors"
+"""
+enum selectors_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  trigger_text
+
+  """column name"""
+  updated_at
+}
+
+input selectors_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: selectors_set_input
+
+  """filter the rows which have to be updated"""
+  where: selectors_bool_exp!
+}
+
+type subscription_root {
+  """An array relationship"""
+  anchors(
+    """distinct select on columns"""
+    distinct_on: [anchors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [anchors_order_by!]
+
+    """filter the rows returned"""
+    where: anchors_bool_exp
+  ): [anchors!]!
+
+  """An aggregate relationship"""
+  anchors_aggregate(
+    """distinct select on columns"""
+    distinct_on: [anchors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [anchors_order_by!]
+
+    """filter the rows returned"""
+    where: anchors_bool_exp
+  ): anchors_aggregate!
+
+  """fetch data from the table: "anchors" using primary key columns"""
+  anchors_by_pk(id: uuid!): anchors
+
+  """
+  fetch data from the table in a streaming manner: "anchors"
+  """
+  anchors_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [anchors_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: anchors_bool_exp
+  ): [anchors!]!
+
+  """
+  fetch data from the table: "selectors"
+  """
+  selectors(
+    """distinct select on columns"""
+    distinct_on: [selectors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [selectors_order_by!]
+
+    """filter the rows returned"""
+    where: selectors_bool_exp
+  ): [selectors!]!
+
+  """
+  fetch aggregated fields from the table: "selectors"
+  """
+  selectors_aggregate(
+    """distinct select on columns"""
+    distinct_on: [selectors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [selectors_order_by!]
+
+    """filter the rows returned"""
+    where: selectors_bool_exp
+  ): selectors_aggregate!
+
+  """fetch data from the table: "selectors" using primary key columns"""
+  selectors_by_pk(id: uuid!): selectors
+
+  """
+  fetch data from the table in a streaming manner: "selectors"
+  """
+  selectors_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [selectors_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: selectors_bool_exp
+  ): [selectors!]!
+}
+
+scalar timestamptz
+
+"""
+Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'.
+"""
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}
+
+scalar uuid
+
+"""
+Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'.
+"""
+input uuid_comparison_exp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _is_null: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
+}

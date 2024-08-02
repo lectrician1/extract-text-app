@@ -1,0 +1,9 @@
+subscription GetAnchors($selector: uuid!) {
+  anchors(where: {selector: {_eq: $selector}}, order_by: {created_at: asc}) {
+    column
+    dist_down
+    dist_right
+    id
+    radius
+  }
+}

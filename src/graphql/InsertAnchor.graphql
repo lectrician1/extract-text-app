@@ -1,0 +1,5 @@
+mutation InsertAnchor($selector: uuid!) {
+  insert_anchors_one(object: {selector: $selector}) {
+    id
+  }
+}

@@ -1,0 +1,15 @@
+subscription GetSelectors {
+  selectors(order_by: {created_at: asc}) {
+    id
+    name
+    trigger_text
+    anchors(order_by: {created_at: asc}) {
+      id
+      column
+      anchor_text
+      dist_down
+      dist_right
+      radius
+    }
+  }
+}

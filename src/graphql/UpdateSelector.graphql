@@ -1,0 +1,5 @@
+mutation UpdateSelector($id: uuid!, $_set: selectors_set_input = {}) {
+  update_selectors_by_pk(pk_columns: {id: $id}, _set: $_set) {
+    id
+  }
+}

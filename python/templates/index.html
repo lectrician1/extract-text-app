@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF and Image Processor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Upload PDF or Image Files</h1>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="files" multiple>
+        <input type="submit" value="Upload">
+    </form>
+    <div id="output">
+        {% if files %}
+            <h2>Processed Files:</h2>
+            {% for file in files %}
+                <div class="image-container">
+                    <img src="{{ url_for('processed_file', filename=file|basename) }}" alt="Processed Image" class="processed-image">
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
